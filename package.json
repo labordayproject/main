@@ -4,16 +4,18 @@
   "description": "This is the first attempt to make heroku work",
   "main": "index.js",
   "scripts": {
-    "start": "node main.js"
+    "start": "node index.js"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/labordayproject/main.git"
+    "url": "https://github.com/labordayproject/main.git"
   },
 
   "keywords": [
     "test",
-    "heroku"
+    "heroku",
+    "express",
+    "node"
   ],
   "author": "Adam Taitano",
   "license": "ISC",
@@ -22,6 +24,7 @@
   },
   "homepage": "https://github.com/labordayproject/main#readme",
   "dependencies": {
+    "ejs": "2.3.3",
     "express": "^4.13.3"
   },
   "engines": {
