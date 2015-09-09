@@ -1,0 +1,30 @@
+{
+  "name": "main",
+  "version": "1.0.0",
+  "description": "This is the first attempt to make heroku work",
+  "main": "index.js",
+  "scripts": {
+    "start": "node main.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/labordayproject/main.git"
+  },
+
+  "keywords": [
+    "test",
+    "heroku"
+  ],
+  "author": "Adam Taitano",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/labordayproject/main/issues"
+  },
+  "homepage": "https://github.com/labordayproject/main#readme",
+  "dependencies": {
+    "express": "^4.13.3"
+  },
+  "engines": {
+    "node": "0.10.x"
+  }
+}
