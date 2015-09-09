@@ -24,7 +24,6 @@
   },
   "homepage": "https://github.com/labordayproject/main#readme",
   "dependencies": {
-    "ejs": "2.3.3",
     "express": "^4.13.3"
   },
   "engines": {
