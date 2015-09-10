@@ -18,25 +18,25 @@
 </head>
 
 <body>
-
+	
 	<header>
-		<h1>Good Hikes</h1>
+		<h1>My Hikes</h1>
 
-		<a href="./login.html" class="btn btn-default login">Log-in / Register</a>
+		<a href="./index.html" class="btn btn-default home">Home</a>
 	</header>
 
 	<hr>
 
 	<form class="navbar-form navbar-left" role="search">
-
+        
         <div class="form-group">
         	<input type="text" class="form-control" placeholder="Enter the name of a city, or zipcode">
         </div>
-
+       
     </form>
 
 	<div class="results">
-	    <h2>How great are these hikes, eh?</h2>
+		<h2>Last hiked: </h2>
 
 	    <div class="jumbotron">
 			<h1>Trail name</h1>
@@ -46,27 +46,15 @@
 		  	<p><a class="btn btn-primary btn-lg">+</a></p>
 		</div>
 
-	    <div class="jumbotron">
-			<h1>Trail name</h1>
-		  	<p>Length</p>
-		  	<p>Elevation</p>
-		  	<p>Nearest City</p>
-		  	<p><a class="btn btn-primary btn-lg">+</a></p>
-		</div>
-
-	    <div class="jumbotron">
-			<h1>Trail name</h1>
-		  	<p>Length</p>
-		  	<p>Elevation</p>
-		  	<p>Nearest City</p>
-		  	<p><a class="btn btn-primary btn-lg">+</a></p>
-		</div>
 	</div>
 
-	<a href="#" class="btn btn-default more">See more hikes...</a>
+	<ul class="nav nav-pills nav-stacked">
+		<li class="active"><a href="./list.html">Wanna Hike (99)</a></li>
+		<li><a href="./list.html">Have Hiked (25)</a></li>
+		<li class="disabled"><a href="./list.html">Custom Hike List (0)</a></li>
+	</ul>
 
 	<footer>App designed by students of Portland Code School 2015. Built using Bootstrap & Bootswatch. Data pulled from trailapi.com.</footer>
 
 </body>
-
 </html>

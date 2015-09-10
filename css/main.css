@@ -3,23 +3,104 @@
 /*
 // Sass definitions
 1. General
-2. 
-3. 
-4. 
-5. 
+2. Hiking List Pages
+3. Main User Page
+4. Front Page
+5. Login Page
 6. 
 7.
 */
 /* 1. GENERAL STYLES
 ============================*/
-/* 2. 
+.group:after {
+  content: "";
+  display: table;
+  clear: both; }
+
+footer {
+  margin: 30px 0;
+  width: 100%;
+  text-align: center; }
+
+/* 2. Hiking List Pages
 ============================*/
-/* 3. 
+.myhikes__list {
+  padding: 0 1%;
+  padding-top: 30px; }
+
+.myhikes__list > .myhikes__list-item {
+  margin-top: 20px; }
+
+.myhikes__list-item img {
+  float: left;
+  width: 50%; }
+
+.myhikes__list-item .info {
+  float: right;
+  width: 50%; }
+
+.btn.reverse {
+  position: absolute;
+  right: 0;
+  top: 0; }
+
+.btn-container {
+  position: absolute;
+  left: 0;
+  top: 0; }
+  .btn-container .btn.back, .btn-container .btn.home {
+    float: left;
+    position: initial;
+    left: initial;
+    top: initial; }
+
+/* 3. Main User Page
 ============================*/
-/* 4. 
+.btn.home {
+  position: absolute;
+  left: 0;
+  top: 0; }
+
+/* 4. Front Page
 ============================*/
-/* 5. 
+header {
+  position: relative;
+  margin: 1%; }
+
+h1 {
+  text-align: center; }
+
+hr {
+  width: 10%; }
+
+.btn.login {
+  position: absolute;
+  right: 0;
+  top: 0; }
+
+form.navbar-form {
+  width: 100%;
+  margin: 2px 0; }
+  form.navbar-form .form-group {
+    width: 100%; }
+    form.navbar-form .form-group .form-control {
+      width: 100%; }
+
+.results {
+  padding: 0 1%;
+  padding-top: 30px; }
+
+.btn.more {
+  margin-left: 43%;
+  margin-top: 20px; }
+
+/* 5. Login Page
 ============================*/
+.form-horizontal fieldset legend {
+  border: none; }
+.form-horizontal fieldset .form-group {
+  margin: 2px 0; }
+
 /* 6. 
 ============================*/
 /* 7.
