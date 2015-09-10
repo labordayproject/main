@@ -22,6 +22,14 @@ footer {
   width: 100%;
   text-align: center; }
 
+.jumbotron {
+  position: relative; }
+
+.jumbotron .btn {
+  position: absolute;
+  right: 0;
+  bottom: 0; }
+
 /* 2. Hiking List Pages
 ============================*/
 .myhikes__list {
@@ -37,7 +45,8 @@ footer {
 
 .myhikes__list-item .info {
   float: right;
-  width: 50%; }
+  margin-left: 2%;
+  width: 48%; }
 
 .btn.reverse {
   position: absolute;
