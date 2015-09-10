@@ -26,7 +26,7 @@
  * as arguments.
  *=======================================================================*/
 
-function searchResults (event) {
+function searchResults ( event ) {
 	
 	event.preventDefault();
 
@@ -34,7 +34,7 @@ function searchResults (event) {
 		
 		var url = 'https://outdoor-data-api.herokuapp.com/api.json?api_key=28f730adcde18a08dfa7dc5198840b3d&q[city_cont]='+city+'&q[state_cont]='+state;
 		
-		function callback (results) {
+		function callback ( results ) {
 			trails = results.places.map( function( trail ){ return trail } )
 		}
 
