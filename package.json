@@ -1,0 +1,26 @@
+{
+  "name": "main",
+  "version": "1.0.0",
+  "description": "##DESCRIPTION",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/labordayproject/main.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/labordayproject/main/issues"
+  },
+  "homepage": "https://github.com/labordayproject/main#readme",
+  "dependencies": {
+    "emailjs": "^0.3.16",
+    "express": "^4.13.3",
+    "jade": "^1.11.0",
+    "passwordless": "^1.1.0",
+    "passwordless-mongostore": "^0.1.3"
+  }
+}
