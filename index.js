@@ -1,7 +1,7 @@
 var express = require('express');
 var app = express();
 var jsdom = require("jsdom");
-$ = require("jquery")(jsdom.jsdom().createWindow()); 
+$ = require("jquery")(jsdom.jsdom().createWindow());
 //URL Declaration
 var url = 'https://outdoor-data-api.herokuapp.com/api.json?api_key=28f730adcde18a08dfa7dc5198840b3d&q[city_cont]='+city+'&q[state_cont]='+state+'&lat='+lat+'&lon='+long+'';
 
@@ -9,7 +9,6 @@ var url = 'https://outdoor-data-api.herokuapp.com/api.json?api_key=28f730adcde18
 // var latest = $.ajax('https://maps.googleapis.com/maps/api/geocode/json?address='+zip+'&key=AIzaSyAQd8ISKvr87dAMkzzQOSnx9BzGHCtamLE');
 // var lat = latest.responseJSON.results[0].geometry.bounds.northeast.lat;
 // var long = longest.responseJSON.results[0].geometry.bounds.northeast.lng;
-
 
 //This turns zipcodes into lat/long:
 var zipped = function ( zipcode ) {
