@@ -1,59 +1,86 @@
 var express = require('express');
 var app = express();
-var request = require('request');
-var geoData = require('./geo.json');
-//Load fs module
-var fs = require('fs');
 var $ = require('jquery');
-// var unirest = require('unirest');
-//use form field to change variables:
-//what these variables should look like:
-//var firstName = document.getElementsByName("firstname")[0].value;
-// console.log($.ajax());
-//what they look like currently:
-var latitude = null;
-var limit = null;
-var longitude = null;
-var name = null;
-var activity = "hiking";
-var city = "portland";
-var state = "oregon";
-var zip = "97225";
-var country;
-var radius = 5;
-var trailName = "";
-var lat = geoData.results[0].geometry.location.lat;
-var long = geoData.results[0].geometry.location.lng;
 
-//var variableRequest = unirest.get("https://trailapi-trailapi.p.mashape.com/?limit=null&lon=null&q[activities_activity_name_cont]=null&q[activities_activity_type_name_eq]="+activity+"&q[city_cont]="+city+"&q[country_cont]="+country+"&q[state_cont]="+state+"&radius="+radius+"");
-// unirest.get("https://outdoor-data-api.herokuapp.com/api.json?api_key=28f730adcde18a08dfa7dc5198840b3d&q[city_cont]=Portland&q[state_cont]=Oregon").end(function (result) {
-//    return result.body;
-// }).pipe(fs.createWriteStream('data1.json'));
+//URL Declaration
+var url = 'https://outdoor-data-api.herokuapp.com/api.json?api_key=28f730adcde18a08dfa7dc5198840b3d&q[city_cont]='+city+'&q[state_cont]='+state+'&lat='+lat+'&lon='+long+'';
+
+// var longest = $.ajax('https://maps.googleapis.com/maps/api/geocode/json?address='+zip+'&key=AIzaSyAQd8ISKvr87dAMkzzQOSnx9BzGHCtamLE');
+// var latest = $.ajax('https://maps.googleapis.com/maps/api/geocode/json?address='+zip+'&key=AIzaSyAQd8ISKvr87dAMkzzQOSnx9BzGHCtamLE');
+// var lat = latest.responseJSON.results[0].geometry.bounds.northeast.lat;
+// var long = longest.responseJSON.results[0].geometry.bounds.northeast.lng;
 
 
-//This calls on trailapi and gets us the data data
-$.ajax('https://outdoor-data-api.herokuapp.com/api.json?api_key=28f730adcde18a08dfa7dc5198840b3d&q[city_cont]='+city+'&q[state_cont]='+state+'&lat='+lat+'&lon='+long+'');
+//This turns zipcodes into lat/long:
+var zipped = function ( zipcode ) {
+  var longest = $.ajax('https://maps.googleapis.com/maps/api/geocode/json?address='+zipcode+'&key=AIzaSyAQd8ISKvr87dAMkzzQOSnx9BzGHCtamLE');
+  var latest = $.ajax('https://maps.googleapis.com/maps/api/geocode/json?address='+zipcode+'&key=AIzaSyAQd8ISKvr87dAMkzzQOSnx9BzGHCtamLE');
+  return [latest,longest];
+};
 
-//.pipe(fs.createWriteStream('data.json'));
-
-//This calls google maps and gets lat/long from a zipcode
-//request('https://maps.googleapis.com/maps/api/geocode/json?address='+zip+'&key=AIzaSyAQd8ISKvr87dAMkzzQOSnx9BzGHCtamLE').pipe(fs.createWriteStream('geo.json'));
-
-//.pipe(fs.createWriteStream('data1.json'));
-
-
-function myFunction() {
-    var x = document.getElementById("frm1");
-    var text = "";
-    var i;
-    for (i = 0; i < x.length ;i++) {
-        text += x.elements[i].value + "<br>";
-    }
-    document.getElementById("demo").innerHTML = text;
-    var city = document.getElementsByName('city')[0].value;
-    var state = document.getElementsByName('state')[0].value;
-  //  request('https://outdoor-data-api.herokuapp.com/api.json?api_key=28f730adcde18a08dfa7dc5198840b3d&q[city_cont]='+city+'&q[state_cont]='+state+'');
-
+//Extracts latitude from object returned by zipped:
+function latitude (obj) {
+  var lat = obj[0].responseJSON.results[0].geometry.bounds.northeast.lat;
+  console.log(obj[0].responseJSON);
+  return lat;
 }
 
-//console.log(long);
+//Extracts longitude from object returned by zipped:
+function longitude (obj) {
+  var long = obj[1].responseJSON.results[0].geometry.bounds.northeast.lng;
+  return long;
+}
+
+//This function should take the input and return arrays of city/state or lat/long;
+function input() {
+
+if ($("#input").val().length === 5) {
+  var obj = zipped(($("#input").val()));
+  var lat = latitude(obj);
+  var long = longitude(obj);
+  return [lat, long];
+}
+else {
+  var string = $("#input").val();
+  var array = string.split(" ");
+  var str = array[0];
+  var city = str.replace(/\,/g,"");
+  var state = array[1];
+  return [city, state];
+}
+}
+
+function citify() {
+  var city = input()[0];
+  return city;
+}
+
+function statify() {
+  var state = input()[1];
+  return state;
+}
+
+function latify() {
+  var lat = input()[0];
+  return lat;
+}
+
+function longify() {
+  var long = input()[1];
+  return long;
+}
+
+var city = citify();
+var state = statify();
+var lat = latify();
+var long = longify();
+
+//This is the main trail API call function
+var getTrails = function (city, state, lat, long) {
+  var url = 'https://outdoor-data-api.herokuapp.com/api.json?api_key=28f730adcde18a08dfa7dc5198840b3d&q[city_cont]='+city+'&q[state_cont]='+state+'&lat='+lat+'&lon='+long+'';
+  var obj = $.ajax(url,{
+  method:'GET',
+  dataType:'jsonp'
+});
+return obj;
+};
