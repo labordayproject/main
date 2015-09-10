@@ -2,8 +2,8 @@ var express = require('express');
 var app = express();
 
 // set the port of our application
-// process.env.PORT lets the port be set by Heroku
-var port = process.env.PORT || 8080;
+// process.env.PORT lets the port be set by Heroku // tried changing to 5000 from 8080;
+var port = process.env.PORT || 5000;
 
 // set the view engine to ejs
 app.set('view engine', 'ejs');
