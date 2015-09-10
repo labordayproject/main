@@ -1,7 +1,7 @@
 var express = require('express');
 var app = express();
-var $ = require('jquery');
-
+var jsdom = require("jsdom");
+$ = require("jquery")(jsdom.jsdom().createWindow()); 
 //URL Declaration
 var url = 'https://outdoor-data-api.herokuapp.com/api.json?api_key=28f730adcde18a08dfa7dc5198840b3d&q[city_cont]='+city+'&q[state_cont]='+state+'&lat='+lat+'&lon='+long+'';
 
