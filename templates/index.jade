@@ -1,8 +1,12 @@
-doctype html
-html(lang="en")
-	head
-		title Good Hikes
-		
-	body
-		h1 "Good Hikes"
-		p "here's our landing page for Good Hikes!"
+extends ./layout.jade
+
+header
+	h1 Good Hikes
+	a.btn.btn-default.login(href="./login.html") Log-in / Register
+hr
+
+include ./partials/_searchBar.jade
+
+include ./partials/_searchResults.jade
+
+a.btn.btn-default.more(href="#") See more hikes...

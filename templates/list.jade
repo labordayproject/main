@@ -1,0 +1,34 @@
+extends ./layout.jade
+
+header
+	h1 Wanna Hike
+
+	//this container is used to group home and back buttons together in the header
+	.btn-container
+		a.btn.btn-default.home(href="./index.html") Home
+		a.btn.btn-default.back(href="./user.html") Back
+
+	a.btn.btn-default.reverse(href="#") Reverse Order
+hr
+
+//these are the buttons used to sort your list by different criteria
+.btn-group.btn-group-justified.sort
+	a.btn.btn-default(href="#") Trail Name
+	a.btn.btn-default(href="#") Date Added
+	a.btn.btn-default(href="#") Length
+	a.btn.btn-default(href="#") Nearest City
+
+//container for the list items
+.myhikes__list
+
+	//an individual list item
+	.group.myhikes__list-item
+		img(src="https://encrypted-tbn1.gstatic.com/images?q=tbn:ANd9GcSHJtUKRZEmYVX4ahtEiOCScmjjX4ubA9EyHppW1iRvwK7wGhx0")
+		.info
+			h2 Trail name - 
+				span length
+			span Nearest City - Elevation - Rating - Status
+	hr
+		
+
+a.btn.btn-default.more(href="#") See more hikes...
