@@ -73,11 +73,15 @@ footer {
 /* 4. Front Page
 ============================*/
 header {
+  background-color: sienna;
   position: relative;
-  margin: 1%; }
+  padding: 2%;}
 
-h1 {
-  text-align: center; }
+header h1 {
+  font-size: 56px;
+  color: white;
+  text-align: center;
+  margin: 0; }
 
 hr {
   width: 10%; }
