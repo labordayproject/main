@@ -25,7 +25,9 @@
   "homepage": "https://github.com/labordayproject/main#readme",
   "dependencies": {
     "ejs": "2.3.3",
-    "express": "^4.13.3"
+    "express": "^4.13.3",
+    "jquery": "^1.11.1",
+    "jsdom": "1.0.1"
   },
   "engines": {
     "node": "0.10.x"
