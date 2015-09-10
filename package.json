@@ -1,26 +1,42 @@
 {
   "name": "main",
   "version": "1.0.0",
-  "description": "##DESCRIPTION",
+  "description": "This is the first attempt to make heroku work",
   "main": "index.js",
   "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "node index.js"
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/labordayproject/main.git"
+    "url": "https://github.com/labordayproject/main.git"
   },
-  "author": "",
+
+  "keywords": [
+    "test",
+    "heroku",
+    "express",
+    "node"
+  ],
+  "author": "Adam Taitano",
   "license": "ISC",
   "bugs": {
     "url": "https://github.com/labordayproject/main/issues"
   },
   "homepage": "https://github.com/labordayproject/main#readme",
   "dependencies": {
+
     "emailjs": "^0.3.16",
     "express": "^4.13.3",
     "jade": "^1.11.0",
     "passwordless": "^1.1.0",
-    "passwordless-mongostore": "^0.1.3"
+    "passwordless-mongostore": "^0.1.3",
+    "ejs": "2.3.3",
+    "express": "^4.13.3",
+    "jquery": "^1.11.1",
+    "jsdom": "1.0.1"
+  },
+  "engines": {
+    "node": "0.10.x"
+
   }
 }
