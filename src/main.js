@@ -5,9 +5,7 @@ Initializing
 */
 
 // Express framework and mock data
-var express = require('express'),
-		data = require('../mock/trails.json'),
-		users = require('../mock/users.json');
+var express = require('express');
 
 // Session and login management
 var passwordless = require('passwordless'),
@@ -20,8 +18,9 @@ var router = express.Router(), // TODO: Check this implementation. Should create
 
 // Set express templating to use Jade
 app.set('view engine', 'jade');
-app.set('views', __dirname + '/../templates');
-app.use( express.static( __dirname + '/../' ));
+app.set('views', __dirname + '/templates/');
+app.use( '/static', express.static( __dirname + '/public' ));
+
 /*
 ========================================
 Session management

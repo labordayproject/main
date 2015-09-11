@@ -57,6 +57,8 @@ function searchResults ( event ) {
 	}
 
 	getTrails( searchSubmit( 'city' ), searchSubmit( 'state' ) );
+
+	return false;
 }
 
 
