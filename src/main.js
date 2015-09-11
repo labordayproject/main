@@ -6,7 +6,8 @@ Initializing
 // MongoDB require:
 var mongodb = require('mongodb');
 
-
+//To get heroku to work:
+// var port_number = server.listen(process.env.PORT || 3000);
 // Express framework and mock data
 var express = require('express');
 
@@ -168,7 +169,7 @@ and a separate tab with
 That way you can set breakpoints in your code and explore your Express app via the link provided after running node-inspector. Be sure to click the visual interface console, do NOT use your browser's built-in console.
 */
 
-app.listen(3000, function() {
+app.listen(process.env.PORT || 3000, function() {
 	console.log("The frontend server is running on port 3000!");
 });
 
