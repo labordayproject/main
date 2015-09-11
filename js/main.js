@@ -48,23 +48,23 @@ var pathToMongoDb = 'mongodb://localhost/passwordless-simple-mail'; //TODO: Comp
 										// passwordless.init(new MongoStore(pathToMongoDb));
 
 // Set up delivery of tokens
-										// passwordless.addDelivery(
-										//     function(tokenToSend, uidToSend, recipient, callback) {
-										//         var host = 'localhost:3000';
-										//         smtpServer.send({
-										//             text:    'Hello!\nAccess your account here: http://' +
-										//             host + '?token=' + tokenToSend + '&uid=' +
-										//             encodeURIComponent(uidToSend),
-										//             from:    yourEmail,
-										//             to:      recipient,
-										//             subject: 'Token for ' + host
-										//         }, function(err, message) {
-										//             if(err) {
-										//                 console.log(err);
-										//             }
-										//             callback(err);
-										//         });
-										// });
+passwordless.addDelivery(
+    function(tokenToSend, uidToSend, recipient, callback) {
+        var host = 'localhost:3000';
+        smtpServer.send({
+            text:    'Hello!\nAccess your account here: http://' +
+            host + '?token=' + tokenToSend + '&uid=' +
+            encodeURIComponent(uidToSend),
+            from:    yourEmail,
+            to:      recipient,
+            subject: 'Token for ' + host
+        }, function(err, message) {
+            if(err) {
+                console.log(err);
+            }
+            callback(err);
+        });
+});
 
 /*
 sessionSupport() makes the login persistent, so the user will stay logged in while browsing your site. It has to come after your session middleware. Have a look at express-session how to setup sessions if you are unsure.
@@ -78,9 +78,9 @@ acceptToken() will accept incoming tokens and authenticate the user (see the URL
 // Display a page asking for the user's email (or phone number, ...)
 // Receive these details (via POST) and identify the user
 /* GET login screen. */
-										// router.get('/login', function(req, res) {
-										//    res.render('login');
-										// });
+router.get('/login', function(req, res) {
+   res.render('login');
+});
 
 /* POST login details. */
 										// router.post('/sendtoken',
@@ -137,9 +137,9 @@ Express views
 */
 
 // Landing page on home directory
-										// app.get('/', function(req, res){
-										// 	res.render('index'); //TODO: Setup index template with hikes. This refers to the index.jade file in the templates folder.
-										// });
+app.get('/', function(req, res){
+	res.render('index'); //TODO: Setup index template with hikes. This refers to the index.jade file in the templates folder.
+});
 
 // Passwordless should redirect to /user/[[id number]] with some tweaking
 app.get('/user/:id?', function(req, res){ // id is an optional variable in the URL
