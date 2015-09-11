@@ -1,0 +1,21 @@
+extends ./layout.jade
+
+header
+    h1 My Hikes
+
+    a.btn.btn-default.home(href="/") Home
+hr
+    
+    include ./partials/_searchBar.jade
+    
+    .results
+        h2 Last hiked:
+        include ./partials/_jumboHike.jade
+
+    ul.nav.nav-pills.nav-stacked
+        li.active
+            a(href="/list") Wanna Hike (99)
+        li
+            a(href="/list") Have Hiked (25)
+        li.disabled
+            a(href="/list") Custom Hike List (0)
