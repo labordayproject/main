@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html>
+<html ng-app="myApp">
 <head>
 
 	<title>GOOD HIKES</title>
@@ -17,8 +17,8 @@
 
 </head>
 
-<body>
-	
+<body ng-controller="AppCtrl">
+
 	<header>
 		<h1>My Hikes</h1>
 
@@ -27,12 +27,42 @@
 
 	<hr>
 
+
+
+
+
+	<table class="table">
+		<thead>
+			<tr>
+				<th>First Name</th>
+				<th>Action</th>
+				<th>&nbsp;</th>
+			</tr>
+		</thead>
+		<tbody>
+			<tr>
+				<td><input class="form-control" ng-model="user.firstName"></td>
+				<td><button class="btn btn-primary" ng-click="addUser()">Add User</button></td>
+				<td><button class="btn btn-info" ng-click="update()">Update</button></td>
+			</tr>
+			<tr ng-repeat="person in people">
+				<td>{{person.firstName}}</td>
+				<td><button class="btn btn-danger" ng-click="remove(person._id)">Remove</button></td>
+				<td><button class="btn btn-warning" ng-click="edit(person._id)">Edit</button></td>
+			</tr>
+		</tbody>
+	</table>
+
+
+
+
+
 	<form class="navbar-form navbar-left" role="search">
-        
+
         <div class="form-group">
         	<input type="text" class="form-control" placeholder="Enter the name of a city, or zipcode">
         </div>
-       
+
     </form>
 
 	<div class="results">
@@ -54,6 +84,11 @@
 	</ul>
 
 	<footer>App designed by students of Portland Code School 2015. Built using Bootstrap & Bootswatch. Data pulled from trailapi.com.</footer>
+
+	<!-- MORE SCRIPTS -->
+	<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js"></script>
+	<script type="text/javascript" src="js/search.js"></script>
+	<script type="text/javascript" src="js/controller.js"></script>
 
 </body>
 </html>
