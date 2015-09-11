@@ -20,8 +20,8 @@ var router = express.Router(), // TODO: Check this implementation. Should create
 
 // Set express templating to use Jade
 app.set('view engine', 'jade');
-app.set('views', __dirname + '/templates');
-
+app.set('views', __dirname + '/../templates');
+app.use( express.static( __dirname + '/../' ));
 /*
 ========================================
 Session management
@@ -64,8 +64,8 @@ sessionSupport() makes the login persistent, so the user will stay logged in whi
 
 acceptToken() will accept incoming tokens and authenticate the user (see the URL in step 5). While the option successRedirect is not strictly needed, it is strongly recommended to use it to avoid leaking valid tokens via the referrer header of outgoing HTTP links on your site. When provided, the user will be forwarded to the given URL as soon as she has been authenticated.
 */
-app.use(passwordless.sessionSupport());
-app.use(passwordless.acceptToken({ successRedirect: '/'}));
+//app.use(passwordless.sessionSupport());
+//app.use(passwordless.acceptToken({ successRedirect: '/'}));
 
 // You will need at least 2 URLs to:
 // Display a page asking for the user's email (or phone number, ...)
@@ -76,22 +76,22 @@ router.get('/login', function(req, res) {
 });
 
 /* POST login details. */
-router.post('/sendtoken',
-    passwordless.requestToken(
-        // Turn the email address into an user ID
-        function(user, delivery, callback, req) {
-            // usually you would want something like:
-            User.find({email: user}, callback(ret) {
-               if(ret)
-                  callback(null, ret.id);
-               else
-                  callback(null, null);
-          })
-        }),
-    (function(req, res) {
-       // success!
-          res.render('sent');
-}));
+// router.post('/sendtoken',
+//     passwordless.requestToken(
+//         // Turn the email address into an user ID
+//         function(user, delivery, callback, req) {
+//             // usually you would want something like:
+//             User.find({email: user}, callback(ret) {
+//                if(ret)
+//                   callback(null, ret.id);
+//                else
+//                   callback(null, null);
+//           })
+//         }),
+//     (function(req, res) {
+//        // success!
+//           res.render('sent');
+// }));
 // What happens here? passwordless.requestToken(getUserId) has two tasks: Making sure the email address exists and transforming it into a proper user ID that will become the identifier from now on. For example user@example.com becomes 123 or 'u1002'. You call callback(null, ID) if all is good, callback(null, null) if you don't know this email address, and callback('error', null) if something went wrong. At this stage, please make sure that you've added middleware to parse POST data (such as body-parser.
 
 /*
@@ -169,3 +169,8 @@ That way you can set breakpoints in your code and explore your Express app via t
 app.listen(3000, function() {
 	console.log("The frontend server is running on port 3000!");
 });
+
+
+
+
+

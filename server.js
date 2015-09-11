@@ -6,7 +6,7 @@ var app = express();
 var port = process.env.PORT || 5000;
 
 // set the view engine to ejs
-app.set('view engine', 'ejs');
+app.set('view engine', 'jade');
 
 // make express look in the public directory for assets (css/js/img)
 app.use(express.static(__dirname + '/public'));
