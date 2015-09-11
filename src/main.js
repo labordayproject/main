@@ -3,6 +3,9 @@
 Initializing
 ========================================
 */
+// MongoDB require:
+var mongodb = require('mongodb');
+
 
 // Express framework and mock data
 var express = require('express');
