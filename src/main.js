@@ -171,3 +171,15 @@ app.listen(3000, function() {
 
 
 // MongoDB creation:
+var uri = 'mongodb://heroku_wf9x7n0v:ccos063ie3ebutb7unck1203k0@ds039411.mongolab.com:39411/heroku_wf9x7n0v';
+
+mongodb.MongoClient.connect(uri, function(err, db) {
+
+  if(err) throw err;
+
+            // Only close the connection when your app is terminating.
+            db.close(function (err) {
+              if(err) throw err;
+      });
+
+});
