@@ -1,3 +1,16 @@
+// var array = [];
+// for ( var trail in demo ){
+//     var obj = {};
+//     obj.name = demo[trail].name;
+//     //obj.length = demo[trail].activities[0].length;
+//     obj.nearest = demo[trail].city;
+//     array.push( obj );
+// }
+
+// console.log(array)
+
+
+
 /*
 ========================================
 Initializing
@@ -12,12 +25,12 @@ var express = require('express');
 
 // Session and login management
 var passwordless = require('passwordless'),
-		MongoStore = require('passwordless-mongostore'), // TODO: Implement with actual MongoDB info
-		email = require("emailjs");
+        MongoStore = require('passwordless-mongostore'), // TODO: Implement with actual MongoDB info
+        email = require("emailjs");
 
 // Initialize Express and a router
 var router = express.Router(), // TODO: Check this implementation. Should create a routing 'mini-app'
-		app = express();
+        app = express();
 
 // Set express templating to use Jade
 app.set('view engine', 'jade');
@@ -32,10 +45,10 @@ Session management
 
 // Initialize SMTP server to deliver tokens
 var smtpServer  = email.server.connect({
-		user:   "goodhikes@bonsaimirrors.com", //this is my dummy domain, all valid
-		password: "g00dh1k3s",
-		host:    "smtp.1and1.com",
-		ssl:     true
+        user:   "goodhikes@bonsaimirrors.com", //this is my dummy domain, all valid
+        password: "g00dh1k3s",
+        host:    "smtp.1and1.com",
+        ssl:     true
 });
 
 // Set up MongoDB token store
@@ -130,23 +143,26 @@ router.post('/sendtoken',
 Express views
 ========================================
 */
-
 // Landing page on home directory
 app.get('/', function(req, res){
-	res.render('index'); //TODO: Setup index template with hikes. This refers to the index.jade file in the templates folder.
+    res.render( 'index' ); //TODO: Setup index template with hikes. This refers to the index.jade file in the templates folder.
+    console.log('array: ', array)
+    console.log('array["_locals"]: ')
+    console.log(array['_locals'] )
 });
+
 
 // Passwordless should redirect to /user/[[id number]] with some tweaking
 app.get('/user/:id?', function(req, res){ // id is an optional variable in the URL
-	var id = req.params.id; //Grabs ID from the URL
+    var id = req.params.id; //Grabs ID from the URL
   // TODO: Query MongoDB for user data (find hikes they've liked, name and photo)
-	if (id === undefined) {
-		res.status(503);
-		res.send("Please return and log in.");
-	} else {
-		var name = users[id] || {}; // Doesn't yet work but you get the idea.
-		res.render('user'); // TODO: This refers to user.jade file in templates. (It's empty). Pass hike data from MongoDB (line 140) in here, like: res.render('user', { name: name});
-	}
+    if (id === undefined) {
+        res.status(503);
+        res.send("Please return and log in.");
+    } else {
+        var name = users[id] || {}; // Doesn't yet work but you get the idea.
+        res.render('user'); // TODO: This refers to user.jade file in templates. (It's empty). Pass hike data from MongoDB (line 140) in here, like: res.render('user', { name: name});
+    }
 });
 
 /*
@@ -157,19 +173,19 @@ Local hosting of site
 
 /*
 To get this up and running, I'd recommend installing nodemon globally with
-	$ npm install -g nodemon
+    $ npm install -g nodemon
 and then initializing with
-	$ nodemon path/to/main.js
+    $ nodemon path/to/main.js
 
 I'd also recommend installing node-inspector globally. Then you can setup nodemon in one terminal tab with
-	$ nodemon --debug path/to/main.js
+    $ nodemon --debug path/to/main.js
 and a separate tab with
-	$ node-inspector
+    $ node-inspector
 That way you can set breakpoints in your code and explore your Express app via the link provided after running node-inspector. Be sure to click the visual interface console, do NOT use your browser's built-in console.
 */
 
 app.listen(3000, function() {
-	console.log("The frontend server is running on port 3000!");
+    console.log("The frontend server is running on port 3000!");
 });
 
 

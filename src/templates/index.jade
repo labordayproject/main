@@ -7,9 +7,12 @@ block content
         a.btn.btn-default.login(href="/login") Log-in / Register
     hr
 
-    include ./partials/_searchBar.jade
+    include ./partials/_searchbar.jade
 
-    include ./partials/_searchResults.jade
+    .results
+        h2 How great are these hikes, eh?
+        
+        include ./partials/_wide-hike.jade
 
 
 

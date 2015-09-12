@@ -7,8 +7,7 @@
  * successive submit.
  *=======================================================================*/
  
- var trails = []; // => [{trail}, {trail}, {trail}, ...]
-
+var trails = []; // => [{trail}, {trail}, {trail}, ...]
 
 
 /*========================================================================
@@ -30,12 +29,16 @@ function searchResults ( event ) {
 	
 	event.preventDefault();
 
+	console.log( 'no refresh!' );
+
 	function getTrails ( city, state ) {
 		
-		var url = 'https://outdoor-data-api.herokuapp.com/api.json?api_key=28f730adcde18a08dfa7dc5198840b3d&q[city_cont]='+city+'&q[state_cont]='+state;
+		var url = 'https://outdoor-data-api.herokuapp.com/api.json?api_key=28f730adcde18a08dfa7dc5198840b3d&q[city_cont]='+city+'&q[state_cont]='+state+'&q[activities_activity_type_name_eq]=hiking';
 		
 		function callback ( results ) {
+			
 			trails = results.places.map( function( trail ){ return trail } )
+			//$.ajax( "localhost:3000", { method: 'POST' }  ).done( function(){ trails = trails } );
 		}
 
 		$.ajax( url, { method:'GET', dataType:'jsonp' }).done(callback);
@@ -58,7 +61,6 @@ function searchResults ( event ) {
 
 	getTrails( searchSubmit( 'city' ), searchSubmit( 'state' ) );
 
-	return false;
 }
 
 
@@ -68,7 +70,7 @@ function searchResults ( event ) {
  * it calls searchResults on submit, making new user defined trail data available.
  *=======================================================================*/
 
-$('.navbar-form').submit( searchResults );
+$('#searchform').submit( searchResults );
 
 
 
