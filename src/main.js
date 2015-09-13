@@ -92,7 +92,7 @@ acceptToken() will accept incoming tokens and authenticate the user (see the URL
 // Display a page asking for the user's email (or phone number, ...)
 // Receive these details (via POST) and identify the user
 /* GET login screen. */
-router.get('/login', function(req, res) {
+app.get('/login', function(req, res) {     // PREVIOUSLY: app.get was router.get
    res.render('login');
 });
 
