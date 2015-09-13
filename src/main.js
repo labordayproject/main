@@ -22,8 +22,8 @@ var express = require('express');
 
 // Session and login management
 var passwordless = require('passwordless'),
-    MongoStore = require('passwordless-mongostore'), // TODO: Implement with actual MongoDB info
-    email = require("emailjs");
+    MongoStore = require('passwordless-mongostore'),
+    email = require('emailjs');
 
 // Initialize Express and a router
 var router = express.Router(), // TODO: Check this implementation. Should create a routing 'mini-app'
@@ -50,16 +50,17 @@ Session management
 */
 
 // Initialize SMTP server to deliver tokens
-var smtpServer  = email.server.connect({
-        user:   "goodhikes@bonsaimirrors.com", //this is my dummy domain, all valid
+var smtpServer =  email.server.connect({
+        user:     "goodhikes@bonsaimirrors.com", //this is my dummy domain, all valid
         password: "g00dh1k3s",
-        host:    "smtp.1and1.com",
-        ssl:     true
+        host:     "smtp.1and1.com",
+        ssl:      true
 });
 
 // Set up MongoDB token store
-var pathToMongoDb = 'mongodb://localhost/passwordless-simple-mail'; //TODO: Complete with MongoDB info
-passwordless.init(new MongoStore(pathToMongoDb));
+// var pathToMongoDb = 'mongodb://localhost/passwordless-simple-mail';
+// passwordless.init(new MongoStore(pathToMongoDb));
+passwordless.init(new MongoStore(dbURL));
 
 // Set up delivery of tokens
 passwordless.addDelivery(
@@ -85,35 +86,52 @@ sessionSupport() makes the login persistent, so the user will stay logged in whi
 
 acceptToken() will accept incoming tokens and authenticate the user (see the URL in step 5). While the option successRedirect is not strictly needed, it is strongly recommended to use it to avoid leaking valid tokens via the referrer header of outgoing HTTP links on your site. When provided, the user will be forwarded to the given URL as soon as she has been authenticated.
 */
-//app.use(passwordless.sessionSupport());
-//app.use(passwordless.acceptToken({ successRedirect: '/'}));
+
+// app.use(passwordless.sessionSupport());                      // Appears that we may need to install the "express-session" node module (middleware)
+// // Look for tokens in any URL requested from the server
+// app.use(passwordless.acceptToken({ successRedirect: '/'}));
+
+
+// Passwordless.prototype.sessionSupport = function() {
+// 	var self = this;
+// 	return function(req, res, next) {
+// 		if(!req.session) {
+// 			throw new Error('sessionSupport requires session middleware such as expressSession');
+// 		} else if (req.session.passwordless) {
+// 			req[self._userProperty] = req.session.passwordless;
+// 		}
+// 		next();
+// 	}
+// }
+
 
 // You will need at least 2 URLs to:
 // Display a page asking for the user's email (or phone number, ...)
 // Receive these details (via POST) and identify the user
 /* GET login screen. */
-app.get('/login', function(req, res) {     // PREVIOUSLY: app.get was router.get
+app.get('/login', function(req, res) {                 // PREVIOUSLY: app.get was router.get
    res.render('login');
 });
 
 /* POST login details. */
-// router.post('/sendtoken',
-//     passwordless.requestToken(
-//         // Turn the email address into an user ID
-//         function(user, delivery, callback, req) {
-//             // usually you would want something like:
-//             User.find({email: user}, callback(ret) {
-//                if(ret)
-//                   callback(null, ret.id);
-//                else
-//                   callback(null, null);
-//           })
-//         }),
-//     (function(req, res) {
-//        // success!
-//           res.render('sent');
-// }));
-// What happens here? passwordless.requestToken(getUserId) has two tasks: Making sure the email address exists and transforming it into a proper user ID that will become the identifier from now on. For example user@example.com becomes 123 or 'u1002'. You call callback(null, ID) if all is good, callback(null, null) if you don't know this email address, and callback('error', null) if something went wrong. At this stage, please make sure that you've added middleware to parse POST data (such as body-parser.
+app.post('/sendtoken',                                 // PREVIOUSLY: app.get was router.get
+    passwordless.requestToken(
+        // Turn the email address into an user ID
+        function(user, delivery, callback, req) {
+            // usually you would want something like:
+            db.users.find({email: user}, function(ret) {
+               if(ret)
+                 callback(null, ret.id);
+               else
+                 callback(null, null);
+            });
+        }),
+    function(req, res) {
+        // success!
+        res.render('sent');
+    }
+);
+// What happens here? passwordless.requestToken(getUserId) has two tasks: Making sure the email address exists and transforming it into a proper user ID that will become the identifier from now on. For example user@example.com becomes 123 or 'u1002'. You call callback(null, ID) if all is good, callback(null, null) if you don't know this email address, and callback('error', null) if something went wrong. At this stage, please make sure that you've added middleware to parse POST data (such as body-parser).
 
 /*
 ========================
