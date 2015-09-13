@@ -146,9 +146,9 @@ Express views
 // Landing page on home directory
 app.get('/', function(req, res){
     res.render( 'index' ); //TODO: Setup index template with hikes. This refers to the index.jade file in the templates folder.
-    console.log('array: ', array)
-    console.log('array["_locals"]: ')
-    console.log(array['_locals'] )
+    // console.log('array: ', array)
+    // console.log('array["_locals"]: ')
+    // console.log(array['_locals'] )
 });
 
 
