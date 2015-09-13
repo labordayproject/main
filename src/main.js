@@ -16,26 +16,32 @@
 Initializing
 ========================================
 */
-// MongoDB require:
-var mongodb = require('mongodb');
-
 
 // Express framework and mock data
 var express = require('express');
 
 // Session and login management
 var passwordless = require('passwordless'),
-        MongoStore = require('passwordless-mongostore'), // TODO: Implement with actual MongoDB info
-        email = require("emailjs");
+    MongoStore = require('passwordless-mongostore'), // TODO: Implement with actual MongoDB info
+    email = require("emailjs");
 
 // Initialize Express and a router
 var router = express.Router(), // TODO: Check this implementation. Should create a routing 'mini-app'
-        app = express();
+    app = express();
 
 // Set express templating to use Jade
 app.set('view engine', 'jade');
 app.set('views', __dirname + '/templates/');
 app.use( '/static', express.static( __dirname + '/public' ));
+
+// MongoDB require:
+// var mongodb = require('mongodb');
+
+// Establish connection tools for handling MongoDB tasks
+var mongojs = require('mongojs'),
+		dbURL = 'mongodb://heroku_wf9x7n0v:ccos063ie3ebutb7unck1203k0@ds039411.mongolab.com:39411/heroku_wf9x7n0v',
+		db = mongojs(dbURL, ['users']),
+		bodyParser = require('body-parser');
 
 /*
 ========================================
@@ -184,21 +190,102 @@ and a separate tab with
 That way you can set breakpoints in your code and explore your Express app via the link provided after running node-inspector. Be sure to click the visual interface console, do NOT use your browser's built-in console.
 */
 
-app.listen(3000, function() {
-    console.log("The frontend server is running on port 3000!");
-});
+
+
+
+
+/*
+========================================
+Database Tasks
+========================================
+*/
 
 
 // MongoDB creation:
-var uri = 'mongodb://heroku_wf9x7n0v:ccos063ie3ebutb7unck1203k0@ds039411.mongolab.com:39411/heroku_wf9x7n0v';
+// var uri = 'mongodb://heroku_wf9x7n0v:ccos063ie3ebutb7unck1203k0@ds039411.mongolab.com:39411/heroku_wf9x7n0v';
+//
+// mongodb.MongoClient.connect(uri, function(err, db) {
+//   if(err) throw err;
+//
+// 	// Only close the connection when your app is terminating.
+//   	db.close(function (err) {
+//     	if(err) throw err;
+//     });
+// });
 
-mongodb.MongoClient.connect(uri, function(err, db) {
 
-  if(err) throw err;
+// To be able to access your route from any other domain or even from an HTML file that’s just sitting on your computer, without being served by the same or any other web server.
+// Code Source: http://jonathanmh.com/how-to-enable-cors-in-express-js-node-js/
+// app.use(function(request, response, next) {
+//   response.header('Access-Control-Allow-Origin', '*');
+//   response.header('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Accept');
+// 	response.header('Access-Control-Allow-Methods', 'GET, POST, DELETE, PUT, OPTIONS, PATCH');
+//   next();
+// });
 
-            // Only close the connection when your app is terminating.
-            db.close(function (err) {
-              if(err) throw err;
-      });
+// Allow Express to utilize and be able to reference all files and directories that reside within the "main" repository/directory
+// app.use(express.static(__dirname));
 
+// Used to interpret data and extract a JSON object from it
+app.use(bodyParser.json());
+
+// Upon request from the controller, supply it with all user documents in the "users" collection
+app.get('/users', function(request, response) {
+  console.log('I received a GET request');
+
+  db.users.find(function(error, documents) {
+    console.log(documents);
+    response.json(documents);
+  });
+});
+
+// Upon request from the controller, add a user document to the "users" collection
+app.post('/users', function(request, response) {
+  console.log(request.body);
+
+  db.users.insert(request.body, function(error, document) {
+    response.json(document);
+  });
+});
+
+// Upon request from the controller, remove a user document from the "users" collection
+app.delete('/users/:id', function(request, response) {
+  var id = request.params.id;
+  console.log(id);
+  db.users.remove({_id: mongojs.ObjectId(id)}, function(error, document) {
+    response.json(document);
+  });
+});
+
+// Upon request from the controller, supply it with a selected user document in the "users" collection
+app.get('/users/:id', function(request, response) {
+  var id = request.params.id;
+  console.log(id);
+  db.users.findOne({_id: mongojs.ObjectId(id)}, function(error, document) {
+    response.json(document);
+  });
+});
+
+// Upon request from the controller, update a selected user document in the "users" collection
+app.put('/users/:id', function(request, response) {
+  var id = request.params.id;
+  console.log(request.body.firstName);
+  db.users.findAndModify(
+    {
+      query: {_id: mongojs.ObjectId(id)},
+      update: {$set: {firstName: request.body.firstName}},
+      new: true
+    },
+    function(error, document) {
+      response.json(document);
+    }
+  );
+});
+
+
+
+
+
+app.listen(3000, function() {
+    console.log("The frontend server is running on port 3000!");
 });
