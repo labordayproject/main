@@ -1,11 +1,13 @@
 doctype html
-html
+html(ng-app="myApp")
     include ./partials/_head.jade
 
-    body
+    body(ng-controller="AppCtrl")
 
         block content
 
         footer App designed by students of Portland Code School 2015. Styles are built on top of Bootstrap & the Bootswatch theme "Simplex". Data pulled from trailapi.com.
 
+        <!-- SCRIPTS -->
+        script(type="text/javascript", src="https://ajax.googleapis.com/ajax/libs/angularjs/1.4.5/angular.min.js")
         script(type="text/javascript", src="/static/js/search.js")
