@@ -1,0 +1,19 @@
+extends ./layoutTest.jade
+
+block content
+
+    header
+        h1 Good Hikes
+        a.btn.btn-default.login(href="/login") Log-in / Register
+    hr
+
+    include ./partials/_searchbar.jade
+
+    .results
+        h2 How great are these hikes, eh?
+
+        include ./partials/_wide-hike.jade
+
+
+
+    a.btn.btn-default.more(href="#", ng-click="addTrail()") See more hikes...

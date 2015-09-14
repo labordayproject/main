@@ -169,7 +169,7 @@ Express views
 */
 // Landing page on home directory
 app.get('/', function(req, res){
-    res.render( 'index' ); //TODO: Setup index template with hikes. This refers to the index.jade file in the templates folder.
+    res.render( 'indexTest' ); //TODO: Setup index template with hikes. This refers to the index.jade file in the templates folder.
     // console.log('array: ', array)
     // console.log('array["_locals"]: ')
     // console.log(array['_locals'] )
@@ -246,6 +246,16 @@ Database Tasks
 
 // Used to interpret data and extract a JSON object from it
 app.use(bodyParser.json());
+
+//
+app.get('/trails', function(request, response) {
+  console.log('I received a GET request');
+
+  db.users.find({firstName: 'Adam'}, {trails: 1}, function(error, documents) {
+    console.log(documents);
+    response.json(documents);
+  });
+});
 
 // Upon request from the controller, supply it with all user documents in the "users" collection
 app.get('/users', function(request, response) {
